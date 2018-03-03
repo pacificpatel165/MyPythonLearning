@@ -1,0 +1,690 @@
+# Python OOP Tutorial 6: Property Decorators - Getters, Setters and Deleters
+"""
+class Employee:
+
+    def __init__(self, first, last):
+        self.first = first
+        self.last = last
+        # self.email = first + '.' + last + '@company.com'
+
+    @property
+    def email(self):
+        return self.first + '.' + self.last + '@company.com'
+
+    @property
+    def fullname(self):
+        return self.first + ' ' + self.last
+
+    @fullname.setter
+    def fullname(self, name):
+        self.first, self.last = name.split(' ')
+
+
+emp_1 = Employee('Prashant', 'Patel')
+
+emp_1.first = 'Naman'
+print(emp_1.__dict__)
+
+print(emp_1.first)
+print(emp_1.email)  # print(emp_1.email())
+print(emp_1.fullname)  # print(emp_1.fullname())
+
+emp_1.fullname = 'Jane Smith'
+print(emp_1.fullname)
+"""
+
+# Python OOP Tutorial 5: Special(Magic/Dunder) Methods
+"""
+class Employee:
+
+    raise_amt = 1.04
+
+    def __init__(self, first, last, pay):
+        self.first = first
+        self.last = last
+        self.pay = pay
+        self.email = first + '.' + last + '@company.com'
+
+    def fullname(self):
+        return (self.first + ' '  + self.last)
+
+    def apply_raise(self):
+        self.pay = int(self.pay * Employee.raise_amt)
+
+    def __repr__(self):
+        return "Employee('{}', '{}', {})".format(self.first, self.last, self.pay)
+
+    def __str__(self):
+        return '{} - {}'.format(self.fullname(), self.email)
+
+    def __len__(self):
+        #return len(self.fullname())
+        return self.fullname().__len__()
+
+emp_1 = Employee('Prashant', 'Patel', 50000)
+emp_2 = Employee('Test', 'User', 40000)
+
+print(emp_1.__repr__())#print(repr(emp_1))
+print(emp_1.__str__())#print(str(emp_1))
+print(emp_1)
+
+print(len(emp_1))
+print(emp_1.__len__())
+
+print(1+2)
+print(int.__add__(1,2))
+print(str.__add__('1', '2'))
+"""
+
+# Python OOP Tutorial 4: Inheritance - Creating Subclasses
+"""
+class Employee(object):
+
+    raise_amt = 1.04
+
+    def __init__(self, first, last, pay):
+        self.first = first
+        self.last = last
+        self.pay = pay
+        self.email = first + '.' + last + '@company.com'
+
+    def fullname(self):
+        return (self.first + ' '  + self.last)
+
+    def apply_raise(self):
+        self.pay = int(self.pay * self.raise_amt)
+
+
+class Developer(Employee):
+    raise_amt = 1.10
+
+    def __init__(self, first, last, pay, prog_lang):
+        super(Developer, self).__init__(first, last, pay)
+        #Employee(first, last, pay)
+        self.prog_lang = prog_lang
+
+
+dev_1 = Developer('Prashant', 'Patel', 50000, 'Python')
+dev_2 = Developer('Test', 'User', 40000, 'Java')
+
+print(dev_1.email)
+print(dev_1.prog_lang)
+
+print(dev_1.pay)
+dev_1.apply_raise()
+print(dev_1.pay)
+"""
+
+# Python OOP Tutorial 3: classmethods and staticmethods
+"""
+class Employee:
+
+    raise_amt = 1.04
+    num_of_emps = 0
+
+    def __init__(self, first, last, pay):
+        self.first = first
+        self.last = last
+        self.pay = pay
+        self.email = first + '.' + last + '@company.com'
+        Employee.num_of_emps += 1
+
+    def fullname(self):
+        return (self.first + ' '  + self.last)
+
+    def apply_raise(self):
+        self.pay = int(self.pay * Employee.raise_amt)
+
+    @classmethod
+    def set_raise_amt(cls, amount):
+        cls.raise_amt = amount 
+
+emp_1 = Employee('Prashant', 'Patel', 50000)
+emp_2 = Employee('Test', 'User', 40000)
+
+Employee.set_raise_amt(1.05)
+
+print(Employee.raise_amt)
+print(emp_1.raise_amt)
+print(emp_2.raise_amt)
+"""
+
+# Python OOP Tutorial 2: Class Variable
+"""
+class Employee:
+
+    raise_amount = 1.04
+    num_of_emps = 0
+
+    def __init__(self, first, last, pay):
+        self.first = first
+        self.last = last
+        self.pay = pay
+        self.email = first + '.' + last + '@company.com'
+        Employee.num_of_emps += 1
+
+    def fullname(self):
+        return (self.first + ' '  + self.last)
+
+    def apply_raise(self):
+        self.pay = int(self.pay * Employee.raise_amount)
+
+emp_1 = Employee('Prashant', 'Patel', 50000)
+emp_2 = Employee('Test', 'User', 40000)
+
+emp_1.raise_amount = 1.05
+print(emp_1.__dict__)
+print(emp_2.__dict__)
+print(Employee.__dict__)
+
+print(emp_1.pay)
+emp_1.apply_raise()
+print(emp_1.pay)
+
+print(Employee.num_of_emps)
+"""
+
+# Python OOP Tutorial 1: Classes and Instances
+"""
+class Employee:
+
+    def __init__(self, first, last, pay):
+        self.first = first
+        self.last = last
+        self.pay = pay
+        self.email = first + '.' + last + '@company.com'
+
+    def fullname(self):
+        return (self.first + ' '  + self.last)
+
+emp_1 = Employee('Prashant', 'Patel', 50000)
+emp_2 = Employee('Test', 'User', 40000)
+
+#print(Employee)
+print(emp_1.email)
+print(emp_2.email)
+print(emp_1.fullname())
+"""
+
+# Named Tuple
+"""
+from collections import namedtuple
+
+Color = namedtuple('Color', ['red', 'green', 'blue'])
+color = Color(55, 155, 255)
+
+print(color[0])
+print(color.blue)
+"""
+
+# Regular Expression Module
+"""
+import re
+
+sentence = 'Start a sentence and then bring it to an end'
+
+print('\tTab')
+print(r'\tTab')
+
+pattern = re.compile(r'en')
+
+matches = pattern.finditer(sentence)
+
+#for match in matches:
+#    print(match)
+
+search_text = '''
+cat
+pat
+rat
+bat
+
+123.567.3423
+777-421-1987
+278*938*9012
+
+Mr. Schafer
+Mr Smith
+Ms Devis
+Mrs. Robinson
+Mr. T
+
+'''
+
+#pattern = re.compile(r'[^b]at')
+#pattern = re.compile(r'\d\d\d.\d\d\d.\d\d\d\d')
+pattern = re.compile(r'\d{3}.\d{3}.\d{4}')
+pattern = re.compile(r'M(r|s|rs)\.?\s[A-Z]\w*')
+
+matches = pattern.finditer(search_text)
+
+for match in matches:
+    print('{}'.format(match.group(0)))
+"""
+
+# Generate Random Numbers
+"""
+import random
+
+value = random.random()
+print(value)
+
+value = random.uniform(1, 10)
+print(value)
+
+value = random.randint(1, 10)
+print(value)
+
+colors = ['Red', 'Black', 'Green']
+
+results = random.choice(colors)
+print(results)
+
+#results = random.choices(colors, k=10)
+#print(results)
+
+#results = random.choices(colors, weights=[18, 18, 2], k=10)
+#print(results)
+
+#print(help(random.shuffle))
+
+deck = list(range(1, 53))
+print(deck)
+random.shuffle(deck)
+print(deck)
+
+hand = random.sample(deck, k=5)
+print(hand)
+"""
+
+# File Objects
+"""
+with open('test.txt', 'w+') as f:
+    f.write('My name is prashant')
+
+with open('test.txt', 'r') as f:
+    print(f.readlines())
+
+import os
+for dirpath, dirnames, filenames in os.walk(os.getcwd()):
+    print('Files', filenames)
+"""
+
+# Datetime Module
+"""
+import datetime
+
+tday = datetime.date.today()
+print(tday)
+print(tday.weekday())
+
+tdelta = datetime.timedelta(days=7)
+print(tday + tdelta)
+"""
+
+# OS Module
+"""
+import os
+from datetime import datetime
+
+#print(dir(os))
+print(os.getcwd())
+print(help(os.listdir))
+print(os.listdir(os.getcwd()))
+print(os.stat('main.py'))
+print(os.stat('main.py').st_size)
+mod_time = os.stat('main.py').st_mtime
+print(datetime.fromtimestamp(mod_time))
+
+for dirpath, dirnames, filenames in os.walk(os.getcwd()):
+    print('Currnet Path', dirpath)
+    print('Directories', dirnames)
+    print('Files', filenames)
+
+print(os.environ.get('HOME'))
+
+file_path = os.path.join(os.environ.get('HOME'), 'my_file.txt')
+print(file_path)
+"""
+
+# Sorting Lists, Tuples, and Objects
+"""
+class Employee:
+    def __init__(self, name, age, salary):
+        self.name = name
+        self.age = age
+        self.salary = salary
+
+    def __repr__(self):
+        return '({},{},${})'.format(self.name, self.age, self.salary)
+
+e1 = Employee('Carl', 37, 80000)
+e2 = Employee('Sarah', 29, 70000)
+e3 = Employee('John', 43, 90000)
+
+employees = [e1, e2, e3]
+
+def e_sort(emp):
+    return emp.name
+
+from operator import attrgetter
+
+#s_employees = sorted(employees, key=e_sort)
+#s_employees = sorted(employees, key=lambda e: e.salary, reverse=True)
+s_employees = sorted(employees, key=attrgetter('age'))
+print(s_employees)
+"""
+
+# if __name__ == '__main__'
+"""
+print(__name__)
+"""
+
+# Using Try/Except Blocks for Error Handling
+"""
+import os
+
+print(os.getcwd())
+print(help(os))
+#f = open('testfile.txt', '+w')
+
+try:
+    pass
+except Exception:
+    pass
+#else:
+#    pass
+#finally:
+#    pass
+"""
+
+# Duck Typing and Asking Forgiveness, Not Permission(EAFP)
+"""
+#person = {'name':'Jane', 'age':23, 'job':'Programmer'}
+person = {'name':'Jane', 'age':23}
+
+# Non-Pythonic Approach --> LBYL(Look Before You Leave)
+
+if 'name' in person and 'age' in person and 'job' in person:
+    print("I'm {name}. I'm {age} years old and I'm a {job}".format(**person))
+else:
+    print('Missing some keys')
+
+
+# Pythonic Approach --> EAFP(Easy to Ask Forgivness than Permission)
+
+try:
+    print("I'm {name}. I'm {age} years old and I'm a {job}".format(**person))
+except KeyError as e:
+    print('Missing {} key'.format(e))
+"""
+
+# LEGB (Local, Enclosing, Global, Builtin)
+
+# import builtins
+"""
+x = 'global x'
+
+def outer():
+    x = 'outer x'
+
+    def inner():
+        x = 'inner x'
+        print(x)
+
+    inner()        
+    print(x)
+
+outer()
+print(x)
+"""
+
+# Generators
+"""
+#import mem_profile
+import random
+import time
+
+names = ['John', 'Corey', 'Adam', 'Steve', 'Rick', 'Thomas']
+majors = ['Math', 'Engineering', 'CompSci', 'Art', 'Business']
+
+#print 'Memory (Before): {}Mb'.format(mem_profile.memory_usage_resource())
+
+def people_list(num_people):
+    result = []
+    for i in xrange(num_people):
+        person = {
+            'id': i,
+            'name': random.choice(names),
+            'major': random.choice(majors) 
+        }
+        result.append(person)
+    return result
+
+def people_generator(num_people):
+    for i in xrange(num_people):
+        person = {
+            'id': i,
+            'name': random.choice(names),
+            'major': random.choice(majors) 
+        }
+        yield person
+
+#t1 = time.clock()
+#people = people_list(1000000)
+#t2 = time.clock()
+
+t1 = time.clock()
+people = people_generator(1000000)
+t2 = time.clock()
+
+#print 'Memory (Before): {}Mb'.format(mem_profile.memory_usage_resource())
+print 'Took {} seconds'.format(t2 - t1)
+"""
+
+# Comprehensions
+"""
+nums = [1,2,3,4,5,6,7,8,9]
+
+# I want 'n' for each 'n' in nums
+my_list = []
+for n in nums:
+    my_list.append(n)
+print(my_list)
+
+# Using comprehension
+my_list = [n for n in nums]
+print(my_list)
+
+# I want 'n*n' for each 'n' in nums
+my_list = []
+for n in nums:
+    my_list.append(n*n)
+print(my_list)
+
+# Using comprehension
+my_list = [n*n for n in nums]
+print(my_list)
+
+# using a map + lambda
+my_list = map(lambda n : n*n, nums)
+
+# I want 'n' for each 'n' in nums if 'n' is even
+my_list = []
+for n in nums:
+    if n%2 == 0:
+        my_list.append(n)
+print(my_list)
+
+# Using comprehension
+my_list = [n for n in nums if n%2 == 0]
+print(my_list)
+
+# using a filter + lambda
+my_list = filter(lambda n : n%2 == 0, nums)
+print(my_list)
+
+
+# I want a (letter, num) pair for each letter in 'abcd' and each number in '0123'
+my_list = []
+for letter in 'abcd':
+    for num in range(4):
+        my_list.append((letter, num))
+print(my_list)
+
+# Using comprehension
+my_list = [(letter, num) for letter in 'abcd' for num in range(40)]
+print(my_list)
+
+# Dictionary Comprehension
+names = ['Bruce', 'Clark', 'Peter', 'Logan', 'Wade']
+heros = ['Batman', 'Superman', 'Spiderman', 'Wolverine', 'Deadpool']
+print(zip(names, heros))
+
+# I want a dict{'name', 'heros'} for each name, hero in zip(names, heros)
+my_dict = {}
+for name, hero in zip(names, heros):
+        my_dict[name] = hero
+print(my_dict)
+
+# Using comprehension
+my_dict = {name:hero for name, hero in zip(names, heros)}
+print(my_dict)
+
+# I want a dict{'name', 'heros'} for each name, hero in zip(names, heros), if name not equal to Peter
+my_dict = {name:hero for name, hero in zip(names, heros) if name is not 'Peter'}
+print(my_dict)
+
+# Set Comprehension
+nums = [1,1,2,1,3,4,3,5,5,6,7,8,7,9,9]
+my_set = set()
+for n in nums:
+    my_set.add(n)
+print(my_set)
+
+# Using comprehension
+my_set = set(n for n in nums) # or my_set = {n for n in nums}
+print(my_set)
+
+# Generator Expressions
+# I want to yield 'n*n' for each 'n' in nums
+nums = [1,2,3,4,5,6,7,8,9,10]
+
+def gen_func(nums):
+    for n in nums:
+        yield n*n
+
+my_gen = gen_func(nums)
+print(my_gen)
+#for i in my_gen:
+#    print(i)
+
+# Using comprehension
+my_gen = (n*n for n in nums)
+print(my_gen)
+for i in my_gen:
+    print(i)
+"""
+
+# Import Module
+"""
+import os
+print(os.getcwd())
+print(os.__file__)
+"""
+
+# Functions
+"""
+def student_info(*args, **kwargs):
+    print(args)
+    print(kwargs)
+
+courses = ['Physics', 'CompSci']
+info = {'name':'Jane', 'age':24}
+
+student_info(courses, info)
+student_info(*courses, **info) # it unpack the value
+"""
+
+# Dictionary
+"""
+student = {'name': 'Prashant', 'age': 25, 'courses': ['Physics', 'CompSci']}
+print(student.get('name'))
+print(student.get('phone', 'Not Found'))
+print(student)
+student.update({'name': 'Jane', 'age': 24, 'phone': '5555-5555'})
+print(student)
+
+for key in student.keys():
+    print(key)
+for value in student.values():
+    print(value)
+for item in student.items():
+    print(item)
+for key, value in student.items():
+    print(key, value)
+"""
+
+# Lists, Tuples and sets
+"""
+courses = ['History', 'Math', 'Physics', 'CompSci']
+courses_2 = ['Art', 'Education']
+courses.append('Boilogy')
+print(courses)
+courses.insert(0, 'Chemistry')
+print(courses)
+courses.extend(courses_2)
+print(courses)
+courses.remove('Art')
+print(courses)
+popped = courses.pop()
+print(popped)
+print(courses)
+courses.reverse()
+print(courses)
+courses.sort()
+print(courses)
+courses.sort(reverse=True)
+print(courses)
+courses = ['History', 'Math', 'Physics', 'CompSci']
+sorted_courses = sorted(courses)
+print(sorted_courses)
+print(courses)
+print(courses.index('CompSci'))
+#print(dir(list))
+#print(help(courses.extend))
+for index, item in enumerate(courses, start=1):
+    print(index, item)
+
+courses_str = ', '.join(courses)
+print(courses_str)
+"""
+
+# Integers and float
+"""
+num = 3
+print(type(num))
+
+num = 3.14
+print(3 // 2)
+"""
+
+# Strings
+"""
+message = 'Hello World'
+print(message[:len(message)])
+print(message[:].upper())
+print(message.count('l'))
+print(message.find('World'))
+message = message.replace('World', 'Universe')
+print(message)
+
+greeting = 'Hello'
+name = 'Prashant'
+message = greeting + ', ' + name + '. Welcome!'
+print(message)
+message = '{}, {}. Welcome!'.format(greeting, name)
+print(message)
+print(dir(name))
+print(help(str.find))
+"""
