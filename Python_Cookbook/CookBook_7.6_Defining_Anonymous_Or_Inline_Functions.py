@@ -12,3 +12,11 @@ you’d like a shortcut that allows you to specify the function “in line.”
 add = lambda x, y: x + y
 print(add(2, 3))
 print(add('hello', 'world'))
+
+# Typically, lambda is used in the context of some other operation, such as sorting or a
+# data reduction:
+
+names = ['David Beazley', 'Brian Jones',
+            'Raymond Hettinger', 'Ned Batchelder']
+
+print(sorted(names, key=lambda name: name.split()[-1].lower()))
